@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: poi-deployment
+  labels:
+    app: poi
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: poi
+  template:
+    metadata:
+      labels:
+        app: poi
+    spec:
+      containers:
+      - name: poi
+        image: jlacr.azurecr.io/poi:latest
+        env:
+        - name: SQL_USER
+          value: azSA
+        - name: SQL_SERVER
+          value: mydrivingdbserver.database.windows.net
+        - name: WEB_PORT
+          value: "80"
+        ports:
+        - containerPort: 80

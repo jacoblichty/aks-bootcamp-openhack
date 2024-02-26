@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: userprofile-deployment
+  labels:
+    app: userprofile
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: userprofile
+  template:
+    metadata:
+      labels:
+        app: userprofile
+    spec:
+      containers:
+      - name: userprofile
+        image: jlacr.azurecr.io/userprofile:latest
+        env:
+        - name: SQL_USER
+          value: azSA
+        - name: SQL_SERVER
+          value: mydrivingdbserver.database.windows.net
+        - name: SQL_PASSWORD
+          value: admin@23
+        ports:
+        - containerPort: 80

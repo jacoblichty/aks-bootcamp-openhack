@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: user-java-deployment
+  labels:
+    app: user-java
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: user-java
+  template:
+    metadata:
+      labels:
+        app: user-java
+    spec:
+      containers:
+      - name: user-java
+        image: jlacr.azurecr.io/user-java:latest
+        env:
+        - name: SQL_USER
+          value: azSA
+        - name: SQL_SERVER
+          value: mydrivingdbserver.database.windows.net
+        - name: SQL_PASSWORD
+          value: admin@23
+        ports:
+        - containerPort: 80

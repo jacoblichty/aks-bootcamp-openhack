@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: trips-deployment
+  labels:
+    app: trips
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: trips
+  template:
+    metadata:
+      labels:
+        app: trips
+    spec:
+      containers:
+      - name: trips
+        image: jlacr.azurecr.io/trips:latest
+        env:
+        - name: SQL_USER
+          value: azSA
+        - name: SQL_SERVER
+          value: mydrivingdbserver.database.windows.net
+        - name: SQL_PASSWORD
+          value: admin@23
+        ports:
+        - containerPort: 80
